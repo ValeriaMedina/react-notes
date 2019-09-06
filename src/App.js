@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from "react";
+//UI MATERIAL
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+//NOTES COMPONENTS
+import NotesForm from "./NotesForm";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: "",
+      description: "",
+      notes: []
+    };
+  }
+
+  updateField = field => e => {
+    this.setState({ [field]: e.target.value });
+  };
+
+  saveNote = () => {};
+
+  render() {
+    console.log(this.state);
+    return (
+      <Fragment>
+        <Typography align="center" variant="h2" gutterBottom>
+          My Notes
+        </Typography>
+        <Grid container justify="center" spacing={2}>
+          <Grid item xs={4}>
+            {/*NOTES LIST*/}
+          </Grid>
+          <Grid item xs={8}>
+            <NotesForm
+              title={this.state.title}
+              description={this.state.description}
+              updateField={this.updateField}
+            />
+          </Grid>
+        </Grid>
+        <Fab color="primary" className="addIcon">
+          <AddIcon />
+        </Fab>
+      </Fragment>
+    );
+  }
 }
 
 export default App;
