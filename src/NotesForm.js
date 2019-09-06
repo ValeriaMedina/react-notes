@@ -4,13 +4,13 @@ import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 import { Icon } from "@material-ui/core";
 
-const NotesForm = ({ updateField, title, description }) => {
+const NotesForm = ({ updateField, title, description, saveNote }) => {
   return (
     <Fragment>
       <Grid item xs={12}>
         <TextField
           type="text"
-          label="title"
+          label="Title"
           margin="normal"
           fullWidth
           onChange={updateField("title")}
@@ -27,7 +27,7 @@ const NotesForm = ({ updateField, title, description }) => {
           value={description}
         />
       </Grid>
-      <Fab color="secondary" className="editIcon">
+      <Fab color="secondary" className="editIcon" onClick={saveNote}>
         <Icon>edit_icon</Icon>
       </Fab>
     </Fragment>

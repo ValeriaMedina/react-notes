@@ -21,7 +21,22 @@ class App extends Component {
     this.setState({ [field]: e.target.value });
   };
 
-  saveNote = () => {};
+  saveNote = () => {
+    if (this.state.title && this.state.description) {
+      this.setState({
+        notes: [
+          ...this.state.notes,
+          {
+            id: Date.now(),
+            title: this.state.title,
+            description: this.state.description
+          }
+        ],
+        title: "",
+        description: ""
+      });
+    }
+  };
 
   render() {
     console.log(this.state);
@@ -39,6 +54,7 @@ class App extends Component {
               title={this.state.title}
               description={this.state.description}
               updateField={this.updateField}
+              saveNote={this.saveNote}
             />
           </Grid>
         </Grid>
