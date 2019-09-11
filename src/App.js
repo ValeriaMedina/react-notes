@@ -6,6 +6,7 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 //NOTES COMPONENTS
 import NotesForm from "./NotesForm";
+import NotesList from "./NotesList";
 
 class App extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class App extends Component {
         </Typography>
         <Grid container justify="center" spacing={2}>
           <Grid item xs={4}>
-            {/*NOTES LIST*/}
+            <NotesList notes={this.state.notes}/>
           </Grid>
           <Grid item xs={8}>
             <NotesForm
