@@ -14,6 +14,7 @@ const NotesForm = ({ updateField, title, description, saveNote }) => {
           margin="normal"
           fullWidth
           onChange={updateField("title")}
+          value={title}
         />
       </Grid>
       <Grid item xs={12}>

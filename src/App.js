@@ -8,8 +8,9 @@ import AddIcon from "@material-ui/icons/Add";
 import NotesForm from "./NotesForm";
 import NotesList from "./NotesList";
 import Home from "./Home";
+import Note from "./Note";
 //React Router
-import { Link, Route } from "react-router-dom";
+import { Link, Route, Redirect } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
@@ -42,8 +43,14 @@ class App extends Component {
     }
   };
 
+  deleteNote = noteId => {
+    this.setState(state => {
+      return { notes: state.notes.filter(note => note.id !== noteId) };
+    });
+  };
+
   render() {
-    console.log(this.state);
+    //console.log(this.state);
     return (
       <Fragment>
         <Typography align="center" variant="h2" gutterBottom>
@@ -51,20 +58,29 @@ class App extends Component {
         </Typography>
         <Grid container justify="center" spacing={2}>
           <Grid item xs={4}>
-            <NotesList notes={this.state.notes} />
+            <NotesList notes={this.state.notes} deleteNote={this.deleteNote} />
           </Grid>
           <Grid item xs={8}>
-            <Route exact path="/" component={Home}/>
-            <Route 
-            path="/add" 
-            render={() => (
-              <NotesForm
-              title={this.state.title}
-              description={this.state.description}
-              updateField={this.updateField}
-              saveNote={this.saveNote}
-              />
-            )}
+            <Route exact path="/" component={Home} />
+            <Route
+              path="/add"
+              render={() => (
+                <NotesForm
+                  title={this.state.title}
+                  description={this.state.description}
+                  updateField={this.updateField}
+                  saveNote={this.saveNote}
+                />
+              )}
+            />
+            <Route
+              path="/view/:id"
+              render={props => {
+                const note = this.state.notes.filter(
+                  note => note.id === parseInt(props.match.params.id)
+                )[0];
+                return note ? <Note note={note} /> : <Redirect to="/"/>;
+              }}
             />
           </Grid>
         </Grid>
